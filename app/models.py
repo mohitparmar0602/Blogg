@@ -40,6 +40,7 @@ class User(UserMixin, db.Model):
 def load_user(user_id: str):
     return db.session.get(User, int(user_id))
 
+
 class Tag(db.Model):
     __tablename__ = "tag"
     id = db.Column(db.Integer, primary_key=True)
@@ -47,6 +48,7 @@ class Tag(db.Model):
 
     def __repr__(self) -> str:
         return f"<Tag {self.name!r}>"
+
 
 class Post(db.Model):
     __tablename__ = "post"

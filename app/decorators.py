@@ -13,9 +13,11 @@ def role_required(*roles):
         return decorated_function
     return decorator
 
+
 def admin_required(f):
     """Shortcut decorator for admin-only routes."""
     return role_required("admin")(f)
+
 
 def author_required(f):
     """Shortcut decorator for author or admin routes."""
