@@ -153,7 +153,7 @@ cython_debug/
 .idea/
 
 # Custom ignores for this project
-blogg.db
+blog.db
 PROJECT_EXPLAINED.txt
 explain the complete lifecycle when.txt
 .gemini/
