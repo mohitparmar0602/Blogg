@@ -1,14 +1,12 @@
 {% extends "base.html" %}
-
 {% block content %}
 
 <div class="d-flex align-items-center justify-content-between mb-4">
     <h1 class="page-title fs-3 mb-0">
-        <i class="bi bi-shield-lock text-success me-2"></i>Admin Dashboard
+        <i class="bi bi-shield-lock text-primary me-2"></i>Admin Dashboard
     </h1>
 </div>
 
-<!-- Stats -->
 <div class="row g-3 mb-5">
     <div class="col-md-4">
         <div class="card border text-center p-4">
@@ -18,7 +16,7 @@
     </div>
     <div class="col-md-4">
         <div class="card border text-center p-4">
-            <div class="stat-number text-success">{{ posts | selectattr('published') | list | length }}</div>
+            <div class="stat-number text-primary">{{ posts | selectattr('published') | list | length }}</div>
             <div class="text-secondary small mt-1">Published Posts</div>
         </div>
     </div>
@@ -30,7 +28,6 @@
     </div>
 </div>
 
-<!-- Users Table -->
 <h2 class="text-uppercase text-secondary small fw-bold mb-3" style="letter-spacing:1px;">
     <i class="bi bi-people me-1"></i> Users
 </h2>
@@ -80,7 +77,7 @@
                                 <option value="author" {% if user.role=='author' %}selected{% endif %}>Author</option>
                                 <option value="admin" {% if user.role=='admin' %}selected{% endif %}>Admin</option>
                             </select>
-                            <button class="btn btn-success btn-sm rounded-pill">Set</button>
+                            <button class="btn btn-primary btn-sm rounded-pill">Set</button>
                         </form>
                         {% if user.id != current_user.id %}
                         <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST"
@@ -99,7 +96,6 @@
     </table>
 </div>
 
-<!-- Posts Table -->
 <h2 class="text-uppercase text-secondary small fw-bold mb-3" style="letter-spacing:1px;">
     <i class="bi bi-journals me-1"></i> All Posts
 </h2>
@@ -157,5 +153,4 @@
         </tbody>
     </table>
 </div>
-
 {% endblock %}

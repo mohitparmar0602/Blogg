@@ -1,18 +1,14 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="row g-4">
-
-    <!-- ====== Post Feed ====== -->
     <div class="col-lg-8">
-
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h1 class="page-title fs-3 mb-0">
-                {% if tag_filter %}<i class="bi bi-tag-fill text-success me-2"></i>#{{ tag_filter }}
-                {% else %}<i class="bi bi-rss-fill text-success me-2"></i>Latest Posts{% endif %}
+                {% if tag_filter %}<i class="bi bi-tag-fill text-primary me-2"></i>#{{ tag_filter }}
+                {% else %}<i class="bi bi-rss-fill text-primary me-2"></i>Latest Posts{% endif %}
             </h1>
             {% if current_user.is_authenticated and current_user.is_author_or_admin() %}
-            <a href="{{ url_for('create_post') }}" class="btn btn-success rounded-pill px-4">
+            <a href="{{ url_for('create_post') }}" class="btn btn-primary rounded-pill px-4">
                 <i class="bi bi-plus-lg"></i> Write
             </a>
             {% endif %}
@@ -22,7 +18,6 @@
         <div class="d-flex flex-column gap-3">
             {% for post in posts.items %}
             <div class="card post-card rounded-3 p-4">
-                <!-- Meta -->
                 <div class="d-flex align-items-center gap-2 mb-2 small text-secondary">
                     <div class="avatar">{{ post.author.username[0].upper() }}</div>
                     <span>{{ post.author.username }}</span>
@@ -32,19 +27,13 @@
                     <span class="badge bg-warning text-dark ms-1">Draft</span>
                     {% endif %}
                 </div>
-
-                <!-- Title -->
                 <h2 class="h5 fw-bold mb-2">
                     <a href="{{ url_for('post_detail', slug=post.slug) }}" class="text-decoration-none text-dark">{{
                         post.title }}</a>
                 </h2>
-
-                <!-- Excerpt -->
                 <p class="text-secondary small excerpt mb-3">
                     {{ post.body_html | striptags | truncate(180) }}
                 </p>
-
-                <!-- Tags -->
                 <div class="d-flex flex-wrap gap-1">
                     {% for tag in post.tags %}
                     <a href="{{ url_for('index', tag=tag.name) }}" class="tag-pill">{{ tag.name }}</a>
@@ -53,8 +42,6 @@
             </div>
             {% endfor %}
         </div>
-
-        <!-- Pagination -->
         {% if posts.pages > 1 %}
         <nav class="mt-4" aria-label="Pagination">
             <ul class="pagination justify-content-center">
@@ -83,23 +70,21 @@
             <h4>No posts yet</h4>
             <p class="small">Be the first to share something.</p>
             {% if current_user.is_authenticated and current_user.is_author_or_admin() %}
-            <a href="{{ url_for('create_post') }}" class="btn btn-success mt-2 rounded-pill px-4">Write a post</a>
+            <a href="{{ url_for('create_post') }}" class="btn btn-primary mt-2 rounded-pill px-4">Write a post</a>
             {% endif %}
         </div>
         {% endif %}
     </div>
-
-    <!-- ====== Sidebar ====== -->
     <div class="col-lg-4">
         <div class="sticky-top" style="top: 80px;">
             {% if not current_user.is_authenticated %}
             <div class="sidebar-card mb-3 text-center">
                 <p class="fs-3 mb-2">✦</p>
-                <p class="text-secondary small mb-3">Join Blogg to start writing.</p>
-                <a href="{{ url_for('register') }}" class="btn btn-success w-100 rounded-pill mb-2">Create
+                <p class="text-secondary small mb-3">Join Blog to start writing.</p>
+                <a href="{{ url_for('register') }}" class="btn btn-primary w-100 rounded-pill mb-2">Create
                     account</a>
                 <p class="text-secondary small mb-0">
-                    Already have one? <a href="{{ url_for('login') }}" class="text-success">Log in</a>
+                    Already have one? <a href="{{ url_for('login') }}" class="text-primary">Log in</a>
                 </p>
             </div>
             {% endif %}
@@ -117,6 +102,5 @@
             {% endif %}
         </div>
     </div>
-
 </div>
 {% endblock %}

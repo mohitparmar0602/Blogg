@@ -4,15 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const preview = document.getElementById('md-preview');
 
     if (!textarea || !preview) return;
-
-    // Configure marked: enable GFM (tables, line breaks, etc.)
     if (window.marked) {
         marked.setOptions({
             gfm: true,
-            breaks: true,       // single newline → <br>
+            breaks: true,
         });
     }
-
     function updatePreview() {
         if (!window.marked) {
             preview.innerHTML = '<p style="color:#f59e0b">⚠ marked.js not loaded yet. Try refreshing.</p>';
@@ -20,17 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const raw = textarea.value.trim() || '*Start typing...*';
         preview.innerHTML = marked.parse(raw);
-
-        // Syntax highlight code blocks if highlight.js is available
         if (window.hljs) {
             preview.querySelectorAll('pre code').forEach(block => hljs.highlightElement(block));
         }
     }
 
     textarea.addEventListener('input', updatePreview);
-    updatePreview(); // initial render
-
-    // Tab key inserts 2 spaces instead of changing focus
+    updatePreview();
     textarea.addEventListener('keydown', e => {
         if (e.key === 'Tab') {
             e.preventDefault();

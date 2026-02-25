@@ -3,9 +3,6 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.extensions import db, login_manager
 
-# --------------------------------------------------------------------------- #
-#  Association table — Post <-> Tag (many-to-many)
-# --------------------------------------------------------------------------- #
 post_tags = db.Table(
     "post_tags",
     db.Column("post_id", db.Integer, db.ForeignKey("post.id"), primary_key=True),
@@ -13,12 +10,8 @@ post_tags = db.Table(
 )
 
 
-# --------------------------------------------------------------------------- #
-#  User model
-# --------------------------------------------------------------------------- #
 class User(UserMixin, db.Model):
     __tablename__ = "user"
-
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -28,14 +21,12 @@ class User(UserMixin, db.Model):
 
     posts = db.relationship("Post", backref="author", lazy=True, cascade="all, delete-orphan")
 
-    # --- password helpers ---
     def set_password(self, password: str) -> None:
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
 
-    # --- role helpers ---
     def is_admin(self) -> bool:
         return self.role == "admin"
 
@@ -45,31 +36,20 @@ class User(UserMixin, db.Model):
     def __repr__(self) -> str:
         return f"<User {self.username!r} [{self.role}]>"
 
-
 @login_manager.user_loader
 def load_user(user_id: str):
     return db.session.get(User, int(user_id))
 
-
-# --------------------------------------------------------------------------- #
-#  Tag model
-# --------------------------------------------------------------------------- #
 class Tag(db.Model):
     __tablename__ = "tag"
-
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
 
     def __repr__(self) -> str:
         return f"<Tag {self.name!r}>"
 
-
-# --------------------------------------------------------------------------- #
-#  Post model
-# --------------------------------------------------------------------------- #
 class Post(db.Model):
     __tablename__ = "post"
-
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     slug = db.Column(db.String(220), unique=True, nullable=False)

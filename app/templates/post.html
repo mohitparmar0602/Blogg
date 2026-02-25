@@ -1,10 +1,7 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-lg-8">
-
-        <!-- Back + draft badge -->
         <div class="d-flex align-items-center gap-2 mb-3">
             <a href="{{ url_for('index') }}" class="btn btn-sm btn-outline-secondary rounded-pill">
                 <i class="bi bi-arrow-left"></i> Back
@@ -13,11 +10,7 @@
             <span class="badge bg-warning text-dark">Draft</span>
             {% endif %}
         </div>
-
-        <!-- Title -->
         <h1 class="post-hero-title mb-3">{{ post.title }}</h1>
-
-        <!-- Meta -->
         <div class="d-flex align-items-center gap-2 text-secondary small mb-3">
             <div class="avatar">{{ post.author.username[0].upper() }}</div>
             <span>{{ post.author.username }}</span>
@@ -27,8 +20,6 @@
             <span>· updated {{ post.updated_at.strftime('%b %d') }}</span>
             {% endif %}
         </div>
-
-        <!-- Tags -->
         {% if post.tags %}
         <div class="d-flex flex-wrap gap-1 mb-4">
             {% for tag in post.tags %}
@@ -38,13 +29,9 @@
         {% endif %}
 
         <hr class="border-secondary opacity-25 mb-4" />
-
-        <!-- Rendered Markdown -->
         <article class="prose mb-5">
             {{ post.body_html | safe }}
         </article>
-
-        <!-- Owner actions -->
         {% if current_user.is_authenticated and (current_user.id == post.author_id or current_user.is_admin()) %}
         <hr class="border-secondary opacity-25" />
         <div class="d-flex gap-2 mt-3">
@@ -60,7 +47,6 @@
             </form>
         </div>
         {% endif %}
-
     </div>
 </div>
 {% endblock %}

@@ -2,7 +2,6 @@ from functools import wraps
 from flask import abort
 from flask_login import current_user
 
-
 def role_required(*roles):
     """Decorator that restricts a view to users with specific roles."""
     def decorator(f):
@@ -14,11 +13,9 @@ def role_required(*roles):
         return decorated_function
     return decorator
 
-
 def admin_required(f):
     """Shortcut decorator for admin-only routes."""
     return role_required("admin")(f)
-
 
 def author_required(f):
     """Shortcut decorator for author or admin routes."""

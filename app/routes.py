@@ -15,9 +15,6 @@ from app.utils import render_markdown
 
 
 def register_routes(app):
-    # --------------------------------------------------------------------------- #
-    #  Helper Functions
-    # --------------------------------------------------------------------------- #
     def _verify_recaptcha(response_token):
         """Returns True if reCAPTCHA response is valid."""
         secret = current_app.config["RECAPTCHA_SECRET_KEY"]
@@ -55,9 +52,6 @@ def register_routes(app):
             db.session.add(tag)
             post.tags.append(tag)
 
-    # --------------------------------------------------------------------------- #
-    #  Auth Routes
-    # --------------------------------------------------------------------------- #
     @app.route("/register", methods=["GET", "POST"])
     def register():
         if current_user.is_authenticated:
@@ -65,12 +59,11 @@ def register_routes(app):
 
         form = RegistrationForm()
         if form.validate_on_submit():
-            # First user becomes admin automatically
             is_first_user = User.query.count() == 0
             user = User(
                 username=form.username.data,
                 email=form.email.data,
-                role="admin" if is_first_user else "reader",
+                role="admin" if is_first_user else form.role.data,
             )
             user.set_password(form.password.data)
             db.session.add(user)
@@ -90,7 +83,6 @@ def register_routes(app):
 
         form = LoginForm()
         if form.validate_on_submit():
-            # --- reCAPTCHA check ---
             recaptcha_token = request.form.get("g-recaptcha-response", "")
             if not recaptcha_token:
                 flash("Please complete the reCAPTCHA.", "danger")
@@ -99,7 +91,6 @@ def register_routes(app):
                 flash("reCAPTCHA verification failed. Please try again.", "danger")
                 return render_template("auth/login.html", form=form, title="Log In")
 
-            # --- credentials check ---
             user = User.query.filter_by(email=form.email.data).first()
             if user and user.check_password(form.password.data):
                 login_user(user, remember=form.remember.data)
@@ -117,9 +108,6 @@ def register_routes(app):
         flash("You have been logged out.", "info")
         return redirect(url_for("index"))
 
-    # --------------------------------------------------------------------------- #
-    #  Blog Routes
-    # --------------------------------------------------------------------------- #
     @app.route("/")
     def index():
         page = request.args.get("page", 1, type=int)
@@ -205,9 +193,6 @@ def register_routes(app):
         posts = Post.query.filter_by(author_id=current_user.id).order_by(Post.created_at.desc()).all()
         return render_template("my_posts.html", posts=posts, title="My Posts")
 
-    # --------------------------------------------------------------------------- #
-    #  Admin Routes
-    # --------------------------------------------------------------------------- #
     @app.route("/admin/dashboard")
     @login_required
     @admin_required

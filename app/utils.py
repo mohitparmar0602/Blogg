@@ -1,7 +1,6 @@
 import markdown2
 import bleach
 
-# Tags and attributes allowed in post HTML
 ALLOWED_TAGS = [
     "a", "abbr", "b", "blockquote", "br", "caption", "cite", "code",
     "col", "colgroup", "dd", "del", "div", "dl", "dt", "em", "h1", "h2",

@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>✨ Blogg ✨</h1>
+  <h1>✨ Blog ✨</h1>
   <p>A modern, minimalist blogging platform built with Flask.</p>
 
   <p>
@@ -14,9 +14,9 @@
 
 ## 📖 Overview
 
-**Blogg** is a clean, lightweight, and fully responsive blogging platform. It empowers writers to create content using Markdown, while providing readers with a beautiful, distraction-free reading experience. 
+**Blog** is a clean, lightweight, and fully responsive blogging platform. It empowers writers to create content using Markdown, while providing readers with a beautiful, distraction-free reading experience.
 
-Designed with a crisp white theme and vibrant green accents, it offers a refreshing user interface.
+Designed with a crisp white theme and vibrant Ocean Blue accents, it offers a refreshing user interface.
 
 ## ✨ Features
 
@@ -39,62 +39,82 @@ Follow these instructions to get a copy of the project up and running on your lo
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/mohitparmar0602/Blogg.git
    cd Blogg
    ```
 
 2. **Create a virtual environment**
-   
-   *On Windows:*
+
+   _On Windows:_
+
    ```bash
    python -m venv venv
    venv\Scripts\activate
    ```
-   
-   *On macOS/Linux:*
+
+   _On macOS/Linux:_
+
    ```bash
    python3 -m venv venv
    source venv/bin/activate
    ```
 
 3. **Install dependencies**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 4. **Initialize the Database**
-   
+
    The application uses SQLite. The databases will be configured and created automatically upon the first run.
 
 5. **Run the Application**
    ```bash
-   python run.py
+   python app.py
    ```
-   *The application will be available at [http://127.0.0.1:5000](http://127.0.0.1:5000).*
+   _The application will be available at [http://127.0.0.1:5000](http://127.0.0.1:5000)._
 
 ## 🛠️ Tech Stack
 
 ### Backend
+
 - **Framework:** Flask
 - **Database:** SQLite with SQLAlchemy ORM
 - **Markdown Processing:** Markdown2
 
 ### Frontend
+
 - **Design Framework:** Bootstrap 5
 - **Styling:** Custom Vanilla CSS
 - **Icons:** Bootstrap Icons
 
 ## 📸 Screenshots
 
-*(Add your screenshots here by replacing these placeholders)*
-> Note: To add screenshots, use the format `![Description](path/to/image.png)`
+_(To display the screenshots you just shared, save them to your `app/static/assets/` folder and update the filenames below)_
 
-## 📄 License
+### **Home Page**
+
+![Home Page](app/static/assets/home.png)
+
+### **Register / Login**
+
+<img src="app/static/assets/register.png" width="45%"> <img src="app/static/assets/login.png" width="45%">
+
+### **My Posts Dashboard**
+
+![My Posts](app/static/assets/myposts.png)
+
+### **Admin Dashboard**
+
+![Admin Dashboard](app/static/assets/admin.png)
 
 This project is licensed under the MIT License - see the `LICENSE` file for more details.
 
 ---
+
 <div align="center">
   <i>Developed with ❤️ by <a href="https://github.com/mohitparmar0602">Mohit Parmar</a></i>
 </div>
