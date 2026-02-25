@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>✨ Blog ✨</h1>
+  <h1>Blog</h1>
   <p>A modern, minimalist blogging platform built with Flask.</p>
 
   <p>
@@ -16,9 +16,9 @@
 
 **Blog** is a clean, lightweight, and fully responsive blogging platform. It empowers writers to create content using Markdown, while providing readers with a beautiful, distraction-free reading experience.
 
-Designed with a crisp white theme and vibrant Ocean Blue accents, it offers a refreshing user interface.
+Designed with a crisp white theme and vibrant Black accents, it offers a refreshing user interface.
 
-## ✨ Features
+## Features
 
 - 📝 **Markdown Support:** Write and format your posts easily with Markdown.
 - 🎨 **Modern Design:** A clean, minimalist UI with smooth hover effects and responsive layouts.
@@ -42,7 +42,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 
    ```bash
    git clone https://github.com/mohitparmar0602/Blog.git
-   cd Blogg
+   cd Blog
    ```
 
 2. **Create a virtual environment**
@@ -90,26 +90,6 @@ Follow these instructions to get a copy of the project up and running on your lo
 - **Design Framework:** Bootstrap 5
 - **Styling:** Custom Vanilla CSS
 - **Icons:** Bootstrap Icons
-
-## 📸 Screenshots
-
-_(To display the screenshots you just shared, save them to your `app/static/assets/` folder and update the filenames below)_
-
-### **Home Page**
-
-![Home Page](app/static/assets/home.png)
-
-### **Register / Login**
-
-<img src="app/static/assets/register.png" width="45%"> <img src="app/static/assets/login.png" width="45%">
-
-### **My Posts Dashboard**
-
-![My Posts](app/static/assets/myposts.png)
-
-### **Admin Dashboard**
-
-![Admin Dashboard](app/static/assets/admin.png)
 
 This project is licensed under the MIT License - see the `LICENSE` file for more details.
 
