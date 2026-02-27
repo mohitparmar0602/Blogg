@@ -18,15 +18,18 @@ def register_routes(app):
     def _verify_recaptcha(response_token):
         """Returns True if reCAPTCHA response is valid."""
         secret = current_app.config["RECAPTCHA_SECRET_KEY"]
-        payload = urllib.parse.urlencode({
-            "secret":   secret,
-            "response": response_token,
-            "remoteip": request.remote_addr,
-        }).encode()
+        payload = urllib.parse.urlencode(
+            {
+                "secret": secret,
+                "response": response_token,
+                "remoteip": request.remote_addr,
+            }
+        ).encode()
         try:
             with urllib.request.urlopen(
                 "https://www.google.com/recaptcha/api/siteverify",
-                data=payload, timeout=5
+                data=payload,
+                timeout=5,
             ) as resp:
                 result = json.loads(resp.read())
                 return result.get("success", False)
@@ -117,7 +120,9 @@ def register_routes(app):
             query = query.join(Post.tags).filter(Tag.name == tag_filter)
         posts = query.paginate(page=page, per_page=8, error_out=False)
         tags = Tag.query.order_by(Tag.name).all()
-        return render_template("index.html", posts=posts, tags=tags, tag_filter=tag_filter, title="Home")
+        return render_template(
+            "index.html", posts=posts, tags=tags, tag_filter=tag_filter, title="Home"
+        )
 
     @app.route("/post/<slug>")
     def post_detail(slug):
@@ -150,7 +155,9 @@ def register_routes(app):
             flash("Post created successfully!", "success")
             return redirect(url_for("post_detail", slug=post.slug))
 
-        return render_template("editor.html", form=form, title="New Post", action="create")
+        return render_template(
+            "editor.html", form=form, title="New Post", action="create"
+        )
 
     @app.route("/edit/<int:post_id>", methods=["GET", "POST"])
     @login_required
@@ -174,7 +181,9 @@ def register_routes(app):
             flash("Post updated!", "success")
             return redirect(url_for("post_detail", slug=post.slug))
 
-        return render_template("editor.html", form=form, title="Edit Post", post=post, action="edit")
+        return render_template(
+            "editor.html", form=form, title="Edit Post", post=post, action="edit"
+        )
 
     @app.route("/delete/<int:post_id>", methods=["POST"])
     @login_required
@@ -190,7 +199,11 @@ def register_routes(app):
     @app.route("/my-posts")
     @login_required
     def my_posts():
-        posts = Post.query.filter_by(author_id=current_user.id).order_by(Post.created_at.desc()).all()
+        posts = (
+            Post.query.filter_by(author_id=current_user.id)
+            .order_by(Post.created_at.desc())
+            .all()
+        )
         return render_template("my_posts.html", posts=posts, title="My Posts")
 
     @app.route("/admin/dashboard")
@@ -199,7 +212,9 @@ def register_routes(app):
     def dashboard():
         users = User.query.order_by(User.created_at.desc()).all()
         posts = Post.query.order_by(Post.created_at.desc()).all()
-        return render_template("admin/dashboard.html", users=users, posts=posts, title="Admin Dashboard")
+        return render_template(
+            "admin/dashboard.html", users=users, posts=posts, title="Admin Dashboard"
+        )
 
     @app.route("/admin/user/<int:user_id>/role", methods=["POST"])
     @login_required

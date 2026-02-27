@@ -15,11 +15,13 @@ def create_app(config_class=Config):
 
     # --- register routes ---
     from app.routes import register_routes
+
     register_routes(flask_app)
 
     # --- create tables on first run ---
     with flask_app.app_context():
         from app import models  # noqa: F401 – ensure models are registered
+
         db.create_all()
 
     return flask_app
